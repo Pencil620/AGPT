@@ -37,15 +37,6 @@
             cursor: pointer;
         }
     </style>
-    <button id="myButton">Click me</button>
-
-   <script>
-     document.getElementById("myButton").addEventListener("click", myFunction);
-
-     function myFunction() {
-       // Your command here
-     }
-   </script>
 </head>
 <body>
 
@@ -166,9 +157,40 @@
         <option value="option3">Option 3</option>
         <option value="option4">Option 4</option>
     </select> <br> <br>
-    <button type="add question">Add question </button> <br> <br>
+    <button id="myButton">add new question</button>
+
+   <script>
+     document.getElementById("myButton").addEventListener("click", myFunction);
+
+     function myFunction(<form>
+    if  <button id="myButton">add new question</button> is clicked 
+         <label for="question">1.   Question:</label>
+    <textarea id="question" name="question" rows="2" required></textarea>
+
+    <label for="option1">Option 1:</label>
+    <input type="text" id="option1" name="option1" required>
+
+    <label for="option2">Option 2:</label>
+    <input type="text" id="option2" name="option2" required>
+
+    <label for="option3">Option 3:</label>
+    <input type="text" id="option3" name="option3" required>
+
+    <label for="option4">Option 4:</label>
+    <input type="text" id="option4" name="option4" required>
+
+    <label for="correctAnswer">Correct Answer:</label>
+    <select id="correctAnswer" name="correctAnswer" required>
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+        <option value="option4">Option 4</option>
+    </select> <br> <br> <br> <br>) {
+     }
+   </script>
 
     <button type="submit">Create Quiz </button>
+    
 </form>
 
 </body>
