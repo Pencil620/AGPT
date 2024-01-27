@@ -159,35 +159,26 @@
     </select> <br> <br>
     <button id="myButton">add new question</button>
 
-   <script>
-     document.getElementById("myButton").addEventListener("click", myFunction);
+  <script>
+    let questionCount = 1;
 
-     function myFunction(<form>
-    if  <button id="myButton">add new question</button> is clicked 
-         <label for="question">1.   Question:</label>
-    <textarea id="question" name="question" rows="2" required></textarea>
-
-    <label for="option1">Option 1:</label>
-    <input type="text" id="option1" name="option1" required>
-
-    <label for="option2">Option 2:</label>
-    <input type="text" id="option2" name="option2" required>
-
-    <label for="option3">Option 3:</label>
-    <input type="text" id="option3" name="option3" required>
-
-    <label for="option4">Option 4:</label>
-    <input type="text" id="option4" name="option4" required>
-
-    <label for="correctAnswer">Correct Answer:</label>
-    <select id="correctAnswer" name="correctAnswer" required>
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
-        <option value="option4">Option 4</option>
-    </select> <br> <br> <br> <br>) {
-     }
-   </script>
+    function addQuestion() {
+      const container = document.getElementById('questionsContainer');
+      const newQuestion = document.createElement('div');
+      newQuestion.innerHTML = `
+        <h3>Question ${questionCount}</h3>
+        <input type="text" name="question${questionCount}" placeholder="Enter your question" required>
+        <input type="text" name="option1" placeholder="Option 1" required>
+        <input type="text" name="option2" placeholder="Option 2" required>
+        <input type="text" name="option3" placeholder="Option 3" required>
+        <input type="text" name="option4" placeholder="Option 4" required>
+        <p>Correct Answer:</p>
+        <input type="text" name="correctAnswer${questionCount}" placeholder="Correct answer" required>
+      `;
+      container.appendChild(newQuestion);
+      questionCount++;
+    }
+  </script>
 
     <button type="submit">Create Quiz </button>
     
