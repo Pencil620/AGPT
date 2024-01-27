@@ -157,29 +157,6 @@
         <option value="option3">Option 3</option>
         <option value="option4">Option 4</option>
     </select> <br> <br>
-    <button id="myButton">add new question</button>
-
-  <script>
-    let questionCount = 1;
-
-    function addQuestion() {
-      const container = document.getElementById('questionsContainer');
-      const newQuestion = document.createElement('div');
-      newQuestion.innerHTML = `
-        <h3>Question ${questionCount}</h3>
-        <input type="text" name="question${questionCount}" placeholder="Enter your question" required>
-        <input type="text" name="option1" placeholder="Option 1" required>
-        <input type="text" name="option2" placeholder="Option 2" required>
-        <input type="text" name="option3" placeholder="Option 3" required>
-        <input type="text" name="option4" placeholder="Option 4" required>
-        <p>Correct Answer:</p>
-        <input type="text" name="correctAnswer${questionCount}" placeholder="Correct answer" required>
-      `;
-      container.appendChild(newQuestion);
-      questionCount++;
-    }
-  </script>
-
     <button type="submit">Create Quiz </button>
     
 </form>
