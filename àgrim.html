@@ -3,73 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Questions</title>
+    <title>AGPT</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
             margin: 20px;
-            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTblHkj6SLlud1Fks6vXfctAO4P3_imnAaKhg&usqp=CAU'); /* Set your image URL */
-            background-size: cover; /* Adjust to your preference */
-            background-repeat: no-repeat;
+            background-color: #3498db;
         }
 
         form {
             max-width: 600px;
             margin: auto;
+            background-color:black;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
 
-        input, textarea {
+        input, textarea, select {
             width: 100%;
-            padding: 10px;
+            padding: 15px;
             margin: 10px 0;
             box-sizing: border-box;
+            border: 2px solid limegreen;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: #4CAF50;
         }
 
         button {
-            background-color: #0000FF;
+            background-color: green;
             color: white;
-            padding: 10px 20px;
+            padding: 15px 30px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 16px;
+        }
+
+        .question-container {
+            border: 2px solid #4CAF50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            background-color: yellow;
+        }
+
+        .delete-question {
+            color: red;
+            cursor: pointer;
+        }
+
+        h1 {
+            color: black;
+        }
+
+        #completion-message {
+            color: green;
+            font-size: 20px;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-<h1> Create your own quiz </h1>
+<h1>Create your own quiz</h1>
 
-<form action="/submit_quiz" method="post">
-    <!-- Question 1 -->
-    <label for="question1">1.   Question:</label>
-    <textarea id="question1" name="question1" rows="2" required></textarea>
+<form action="javascript:void(0);" onsubmit="showCompletionMessage()" id="quiz-form">
+    <div id="questions-container">
+        <!-- Question 1 -->
+        <div class="question-container" data-question-number="1">
+            <label for="question1">1. Question:</label>
+            <textarea id="question1" name="question1" rows="2" required></textarea>
 
-    <label for="option1_1">Option 1:</label>
-    <input type="text" id="option1_1" name="option1_1" required>
+            <label for="option1_1">Option 1:</label>
+            <input type="text" name="option1_1" required>
 
-    <label for="option2_1">Option 2:</label>
-    <input type="text" id="option2_1" name="option2_1" required>
+            <label for="option2_1">Option 2:</label>
+            <input type="text" name="option2_1" required>
 
-    <label for="option3_1">Option 3:</label>
-    <input type="text" id="option3_1" name="option3_1" required>
+            <label for="option3_1">Option 3:</label>
+            <input type="text" name="option3_1" required>
 
-    <label for="option4_1">Option 4:</label>
-    <input type="text" id="option4_1" name="option4_1" required>
+            <label for="option4_1">Option 4:</label>
+            <input type="text" name="option4_1" required>
 
-    <label for="correctAnswer1">Correct Answer:</label>
-    <select id="correctAnswer1" name="correctAnswer1" required>
-        <option value="option1_1">Option 1</option>
-        <option value="option2_1">Option 2</option>
-        <option value="option3_1">Option 3</option>
-        <option value="option4_1">Option 4</option>
-    </select> <br> <br> <br> <br>
+            <!-- Correct Answer for Question 1 -->
+            <label for="correctAnswer1">Correct Answer:</label>
+            <select name="correctAnswer1" required>
+                <option value="option1_1">Option 1</option>
+                <option value="option2_1">Option 2</option>
+                <option value="option3_1">Option 3</option>
+                <option value="option4_1">Option 4</option>
+            </select>
 
-    <!-- Question 2 -->
-    <!-- Repeat the structure for each question, incrementing the numbers in IDs and names -->
+            <!-- Delete question button -->
+            <span class="delete-question" onclick="deleteQuestion(this)">Delete Question</span>
+        </div>
+    </div>
 
-    <button type="submit">Create Quiz </button>
+    <button type="button" onclick="addQuestion()">Add Question</button>
+    <button type="submit" id="create-quiz-btn">Create Quiz</button>
+
+    <div id="completion-message"></div>
+
 </form>
+
+<script>
+    function addQuestion() {
+        var questionsContainer = document.getElementById('questions-container');
+        var newQuestionContainer = questionsContainer.firstElementChild.cloneNode(true);
+        var questionNumber = questionsContainer.children.length + 1;
+
+        // Update data attribute with the new question number
+        newQuestionContainer.dataset.questionNumber = questionNumber;
+
+        // Update IDs and names with the new question number
+        newQuestionContainer.querySelectorAll('[id], [name]').forEach(function (element) {
+            element.id = element.id.replace(/\d+/, questionNumber);
+            element.name = element.name.replace(/\d+/, questionNumber);
+        });
+
+        // Clear inputs and select
+        newQuestionContainer.querySelectorAll('input, textarea').forEach(function (element) {
+            element.value = '';
+        });
+
+        // Append the new question container
+        questionsContainer.appendChild(newQuestionContainer);
+    }
+
+    function deleteQuestion(deleteBtn) {
+        var questionContainer = deleteBtn.parentNode;
+        var questionsContainer = questionContainer.parentNode;
+        questionsContainer.removeChild(questionContainer);
+    }
+
+    function showCompletionMessage() {
+        var completionMessage = document.getElementById('completion-message');
+        completionMessage.innerHTML = "Quiz created successfully!";
+
+        // Disable form elements after submission
+        document.getElementById('quiz-form').querySelectorAll('input, textarea, select, button').forEach(function(element) {
+            element.disabled = true;
+        });
+
+        // Redirect to the quiz_result.html after 2 seconds (adjust as needed)
+        setTimeout(function() {
+            window.location.href = 'quiz_result.html';
+        }, 2000);
+    }
+</script>
 
 </body>
 </html>
