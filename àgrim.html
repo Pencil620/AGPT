@@ -1,5 +1,3 @@
-
-
 User
 !DOCTYPE html>
 <html lang="en">
@@ -155,39 +153,53 @@ function showCompletionMessage() {
         element.disabled = true;
     });
 
+    // Hide correct answer drop-downs
+    document.getElementById('questions-container').querySelectorAll('[name^="correctAnswer"]').forEach(function (element) {
+        element.style.display = 'none';
+    });
+
     // Redirect to the quiz display page after 2 seconds (adjust as needed)
     setTimeout(function () {
         playQuiz();
     }, 2000);
 }
 
+
 function playQuiz() {
     var questionsContainer = document.getElementById('questions-container');
     var questionElements = questionsContainer.querySelectorAll('.question-container');
 
-    var queryString = '';
+    var quizDisplay = document.getElementById('completion-message');
+    quizDisplay.innerHTML = "<h2>Quiz Questions</h2>";
 
     questionElements.forEach(function (question, index) {
         var questionNumber = index + 1;
-
         var questionText = question.querySelector('[name^="question"]').value;
-        var option1 = question.querySelector('[name^="option1"]').value;
-        // Repeat for other options...
-        var correctAnswer = question.querySelector('[name^="correctAnswer"]').value;
 
-        queryString += 'question' + questionNumber + '=' + encodeURIComponent(questionText) +
-            '&option1_' + questionNumber + '=' + encodeURIComponent(option1) +
-            // Repeat for other options...
-            '&correctAnswer' + questionNumber + '=' + encodeURIComponent(correctAnswer) +
-            '&';
+        // Initialize an array to store all options for the current question
+        var options = [];
+
+        // Loop through all option inputs for the current question
+        question.querySelectorAll('[name^="option"]').forEach(function (optionInput) {
+            options.push(optionInput.value);
+        });
+
+        quizDisplay.innerHTML += `
+            <div class="question-container">
+                <p><strong>${questionNumber}. ${questionText}</strong></p>
+                <ul>
+                    ${options.map(option => `<li>${option}</li>`).join('')}
+                </ul>
+            </div>`;
     });
 
-    // Remove the trailing '&' from the queryString
-    queryString = queryString.slice(0, -1);
-
-    // Redirect to the quiz display page with parameters
-    window.location.href = 'https://sites.google.com/view/agpt-quiz-display/home?' + queryString;
+    // You can perform other actions here if needed
+    console.log("Quiz created successfully!");
 }
+
+
+
+
 
 </script>
 
