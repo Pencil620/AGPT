@@ -1,1 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGPT</title>
+    <style>
+        /* Your existing styles remain unchanged */
+    </style>
+</head>
+<body>
 
+<h1>Create your own quiz</h1>
+
+<form onsubmit="showCompletionMessage()" id="quiz-form">
+    <div id="questions-container">
+        <!-- Question 1 -->
+        <!-- Your existing question container here -->
+    </div>
+
+    <button type="button" onclick="addQuestion()">Add Question</button>
+    <button type="submit" id="create-quiz-btn">Create Quiz</button>
+
+    <!-- New div to display the completion message -->
+    <div id="completion-message"></div>
+
+    <!-- New div to display the "Thank You" message -->
+    <div id="thank-you-message" style="display: none;">
+        <h2>Thank you for creating a quiz with us!</h2>
+    </div>
+</form>
+
+<script>
+    // Your existing JavaScript code remains unchanged
+
+    function showCompletionMessage() {
+        var completionMessage = document.getElementById('completion-message');
+        var thankYouMessage = document.getElementById('thank-you-message');
+
+        completionMessage.innerHTML = "Quiz created successfully! Redirecting...";
+
+        // Disable form elements after submission
+        document.getElementById('quiz-form').querySelectorAll('input, textarea, select, button').forEach(function(element) {
+            element.disabled = true;
+        });
+
+        // Hide the form and display the "Thank You" message
+        document.getElementById('quiz-form').style.display = 'none';
+        thankYouMessage.style.display = 'block';
+
+        // Redirect to the quiz_result.html after 2 seconds (adjust as needed)
+        setTimeout(function() {
+            window.location.href = 'https://sites.google.com/view/agpt-quiz-display/home';
+        }, 2000);
+
+        // Prevent the form from actually submitting
+        return false;
+    }
+</script>
+
+</body>
+</html>
