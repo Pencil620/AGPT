@@ -142,24 +142,6 @@
         var questionsContainer = questionContainer.parentNode;
         questionsContainer.removeChild(questionContainer);
     }
-
-function showCompletionMessage() {
-    var completionMessage = document.getElementById('completion-message');
-    completionMessage.innerHTML = "Quiz created successfully! Redirecting...";
-
-    // Disable form elements after submission
-    document.getElementById('quiz-form').querySelectorAll('input, textarea, select, button').forEach(function(element) {
-        element.disabled = true;
-    });
-
-    // Redirect to the quiz_result.html after 2 seconds (adjust as needed)
-    setTimeout(function() {
-        window.location.href = 'https://sites.google.com/view/agpt-quiz-display/home';
-    }, 2000);
-}
-
-</script>
-
 <script>
     function submitForm() {
         var questionsContainer = document.getElementById('questions-container');
@@ -186,13 +168,11 @@ function showCompletionMessage() {
         queryString = queryString.slice(0, -1);
 
         // Redirect to the display page with parameters
-        window.location.href = 'https://sites.google.com/view/agpt-quiz-display/home?' + queryString;
+        window.location.href = 'quiz_display.html?' + queryString;
 
         // Prevent the form from actually submitting
         return false;
     }
 </script>
-
-
 </body>
 </html>
