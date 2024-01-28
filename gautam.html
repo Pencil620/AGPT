@@ -1,6 +1,31 @@
-<div id="quizContainer">
-  <h2 id="quizTitle">Quiz Title</h2>
-  <div id="quizQuestions">
-  </div>
-</div>
-<script src="quiz_display.js"></script>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <!-- ... (head content) ... -->
+    </head>
+    <body>
+    
+    <div class="quiz-container">
+        <h2>Quiz Questions</h2>
+    
+        <!-- Question 1 -->
+        <div class="question">
+            <p><strong>1. Question:</strong> <?php echo $_GET['question1']; ?></p>
+            <div class="options">
+                <p><strong>Options:</strong></p>
+                <ul>
+                    <li><?php echo $_GET['option1_1']; ?></li>
+                    <li><?php echo $_GET['option2_1']; ?></li>
+                    <li><?php echo $_GET['option3_1']; ?></li>
+                    <li><?php echo $_GET['option4_1']; ?></li>
+                </ul>
+            </div>
+        </div>
+    
+        <!-- Repeat the structure for each user-made question -->
+    
+    </div>
+    
+    </body>
+    </html>
+    
