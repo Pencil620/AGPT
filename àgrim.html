@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -162,20 +162,37 @@ function showCompletionMessage() {
 
 <script>
     function submitForm() {
-        // Access form elements and construct the URL with parameters
-        var question1 = document.getElementById('question1').value;
-        var option1_1 = document.getElementById('option1_1').value;
-        // Repeat for other fields...
+        var questionsContainer = document.getElementById('questions-container');
+        var questionElements = questionsContainer.querySelectorAll('.question-container');
+
+        var queryString = '';
+
+        questionElements.forEach(function (question, index) {
+            var questionNumber = index + 1;
+
+            var questionText = question.querySelector('[name^="question"]').value;
+            var option1 = question.querySelector('[name^="option1"]').value;
+            // Repeat for other options...
+            var correctAnswer = question.querySelector('[name^="correctAnswer"]').value;
+
+            queryString += 'question' + questionNumber + '=' + encodeURIComponent(questionText) +
+                           '&option1_' + questionNumber + '=' + encodeURIComponent(option1) +
+                           // Repeat for other options...
+                           '&correctAnswer' + questionNumber + '=' + encodeURIComponent(correctAnswer) +
+                           '&';
+        });
+
+        // Remove the trailing '&' from the queryString
+        queryString = queryString.slice(0, -1);
 
         // Redirect to the display page with parameters
-        window.location.href = 'quiz_display.html?question1=' + encodeURIComponent(question1) +
-                               '&option1_1=' + encodeURIComponent(option1_1);
-        // Add other parameters as needed
+        window.location.href = 'quiz_display.html?' + queryString;
 
         // Prevent the form from actually submitting
         return false;
     }
 </script>
+
 
 </body>
 </html>
