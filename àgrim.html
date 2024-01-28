@@ -143,19 +143,37 @@
         questionsContainer.removeChild(questionContainer);
     }
 
-    function showCompletionMessage() {
-        var completionMessage = document.getElementById('completion-message');
-        completionMessage.innerHTML = "Quiz created successfully!";
+function showCompletionMessage() {
+    var completionMessage = document.getElementById('completion-message');
+    completionMessage.innerHTML = "Quiz created successfully! Redirecting...";
 
-        // Disable form elements after submission
-        document.getElementById('quiz-form').querySelectorAll('input, textarea, select, button').forEach(function(element) {
-            element.disabled = true;
-        });
+    // Disable form elements after submission
+    document.getElementById('quiz-form').querySelectorAll('input, textarea, select, button').forEach(function(element) {
+        element.disabled = true;
+    });
 
-        // Redirect to the quiz_result.html after 2 seconds (adjust as needed)
-        setTimeout(function() {
-            window.location.href = 'quiz_result.html';
-        }, 2000);
+    // Redirect to the quiz_result.html after 2 seconds (adjust as needed)
+    setTimeout(function() {
+        window.location.href = 'quiz_result.html';
+    }, 2000);
+}
+
+</script>
+
+<script>
+    function submitForm() {
+        // Access form elements and construct the URL with parameters
+        var question1 = document.getElementById('question1').value;
+        var option1_1 = document.getElementById('option1_1').value;
+        // Repeat for other fields...
+
+        // Redirect to the display page with parameters
+        window.location.href = 'quiz_display.html?question1=' + encodeURIComponent(question1) +
+                               '&option1_1=' + encodeURIComponent(option1_1);
+        // Add other parameters as needed
+
+        // Prevent the form from actually submitting
+        return false;
     }
 </script>
 
