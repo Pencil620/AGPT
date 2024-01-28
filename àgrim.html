@@ -76,7 +76,7 @@ User
 
 <form action="javascript:void(0);" onsubmit="showCompletionMessage()" id="quiz-form">
     <div id="questions-container">
-        <!-- Question 1 -->
+
         <div class="question-container" data-question-number="1">
             <label for="question1">1. Question:</label>
             <textarea id="question1" name="question1" rows="2" required></textarea>
@@ -93,7 +93,6 @@ User
             <label for="option4_1">Option 4:</label>
             <input type="text" name="option4_1" required>
 
-            <!-- Correct Answer for Question 1 -->
             <label for="correctAnswer1">Correct Answer:</label>
             <select name="correctAnswer1" required>
                 <option value="option1_1">Option 1</option>
@@ -101,8 +100,7 @@ User
                 <option value="option3_1">Option 3</option>
                 <option value="option4_1">Option 4</option>
             </select>
-
-            <!-- Delete question button -->
+            
             <span class="delete-question" onclick="deleteQuestion(this)">Delete Question</span>
         </div>
     </div>
@@ -120,21 +118,17 @@ User
         var newQuestionContainer = questionsContainer.firstElementChild.cloneNode(true);
         var questionNumber = questionsContainer.children.length + 1;
 
-        // Update data attribute with the new question number
         newQuestionContainer.dataset.questionNumber = questionNumber;
 
-        // Update IDs and names with the new question number
         newQuestionContainer.querySelectorAll('[id], [name]').forEach(function (element) {
             element.id = element.id.replace(/\d+/, questionNumber);
             element.name = element.name.replace(/\d+/, questionNumber);
         });
 
-        // Clear inputs and select
         newQuestionContainer.querySelectorAll('input, textarea').forEach(function (element) {
             element.value = '';
         });
 
-        // Append the new question container
         questionsContainer.appendChild(newQuestionContainer);
     }
 
@@ -148,17 +142,14 @@ function showCompletionMessage() {
     var completionMessage = document.getElementById('completion-message');
     completionMessage.innerHTML = "Quiz created successfully! Redirecting...";
 
-    // Disable form elements after submission
     document.getElementById('quiz-form').querySelectorAll('input, textarea, select, button').forEach(function (element) {
         element.disabled = true;
     });
 
-    // Hide correct answer drop-downs
     document.getElementById('questions-container').querySelectorAll('[name^="correctAnswer"]').forEach(function (element) {
         element.style.display = 'none';
     });
 
-    // Redirect to the quiz display page after 2 seconds (adjust as needed)
     setTimeout(function () {
         playQuiz();
     }, 2000);
@@ -176,10 +167,8 @@ function playQuiz() {
         var questionNumber = index + 1;
         var questionText = question.querySelector('[name^="question"]').value;
 
-        // Initialize an array to store all options for the current question
         var options = [];
 
-        // Loop through all option inputs for the current question
         question.querySelectorAll('[name^="option"]').forEach(function (optionInput) {
             options.push(optionInput.value);
         });
@@ -193,13 +182,8 @@ function playQuiz() {
             </div>`;
     });
 
-    // You can perform other actions here if needed
     console.log("Quiz created successfully!");
 }
-
-
-
-
 
 </script>
 
