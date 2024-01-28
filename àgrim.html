@@ -151,49 +151,44 @@ function showCompletionMessage() {
     completionMessage.innerHTML = "Quiz created successfully! Redirecting...";
 
     // Disable form elements after submission
-    document.getElementById('quiz-form').querySelectorAll('input, textarea, select, button').forEach(function(element) {
+    document.getElementById('quiz-form').querySelectorAll('input, textarea, select, button').forEach(function (element) {
         element.disabled = true;
     });
 
-    // Redirect to the quiz_result.html after 2 seconds (adjust as needed)
-    setTimeout(function() {
-        window.location.href = 'https://sites.google.com/view/agpt-quiz-display/home';
+    // Redirect to the quiz display page after 2 seconds (adjust as needed)
+    setTimeout(function () {
+        playQuiz();
     }, 2000);
 }
 
-</script>
+function playQuiz() {
+    var questionsContainer = document.getElementById('questions-container');
+    var questionElements = questionsContainer.querySelectorAll('.question-container');
 
-<script>
-    function submitForm() {
-        var questionsContainer = document.getElementById('questions-container');
-        var questionElements = questionsContainer.querySelectorAll('.question-container');
+    var queryString = '';
 
-        var queryString = '';
+    questionElements.forEach(function (question, index) {
+        var questionNumber = index + 1;
 
-        questionElements.forEach(function (question, index) {
-            var questionNumber = index + 1;
+        var questionText = question.querySelector('[name^="question"]').value;
+        var option1 = question.querySelector('[name^="option1"]').value;
+        // Repeat for other options...
+        var correctAnswer = question.querySelector('[name^="correctAnswer"]').value;
 
-            var questionText = question.querySelector('[name^="question"]').value;
-            var option1 = question.querySelector('[name^="option1"]').value;
+        queryString += 'question' + questionNumber + '=' + encodeURIComponent(questionText) +
+            '&option1_' + questionNumber + '=' + encodeURIComponent(option1) +
             // Repeat for other options...
-            var correctAnswer = question.querySelector('[name^="correctAnswer"]').value;
+            '&correctAnswer' + questionNumber + '=' + encodeURIComponent(correctAnswer) +
+            '&';
+    });
 
-            queryString += 'question' + questionNumber + '=' + encodeURIComponent(questionText) +
-                           '&option1_' + questionNumber + '=' + encodeURIComponent(option1) +
-                           // Repeat for other options...
-                           '&correctAnswer' + questionNumber + '=' + encodeURIComponent(correctAnswer) +
-                           '&';
-        });
+    // Remove the trailing '&' from the queryString
+    queryString = queryString.slice(0, -1);
 
-        // Remove the trailing '&' from the queryString
-        queryString = queryString.slice(0, -1);
+    // Redirect to the quiz display page with parameters
+    window.location.href = 'https://sites.google.com/view/agpt-quiz-display/home?' + queryString;
+}
 
-        // Redirect to the display page with parameters
-        window.location.href = 'https://sites.google.com/view/agpt-quiz-display/home?' + queryString;
-
-        // Prevent the form from actually submitting
-        return false;
-    }
 </script>
 
 
